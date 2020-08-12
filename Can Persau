@@ -1,0 +1,77 @@
+from random import randint
+
+
+def menue():
+    print("\n---------------------")
+    print("Menü:")
+    print("(N)eues Spiel starten")
+    print("(L)evel festlegen")
+    print("(B)eenden")
+
+
+def neues_spiel(level):
+    bereich = 10 * level
+    print("Neues Spiel beginnt. Rate eine Zahl von 1 bis", bereich)
+
+    zielzahl = randint(1, bereich)
+    anzahl_versuche = 0
+
+    tipp = 0
+
+    while tipp != zielzahl:
+        tipp = int(input("Dein Tipp (0 zum Aufgeben): "))
+
+        if tipp == 0:
+            print("Du gibst auf, schade")
+            break
+        elif tipp > bereich or tipp < 1:
+            print("Zahl außerhalb des Wertbereiches")
+            continue
+        elif int(tipp < zielzahl):
+            print("Die gesuchte Zahl ist größer")
+        elif int(tipp > zielzahl):
+            print("Die gesuchte Zahl ist kleiner")
+
+        anzahl_versuche += 1
+
+    else:
+        print("Glückwunsch, Du hast die Zahl erraten!")
+        print("Anzahl der Versuche: ", anzahl_versuche)
+        menue()
+
+
+def levels():
+    while True:
+        level = int(input("Gebe Level ein (1-10): "))
+        if level >= 1 and level <= 10:
+            return int(level)
+        else:
+            print("Außerhalb des Wertbereiches")
+
+
+def beenden():
+    print("Spiel wird beendet")
+
+
+def main():
+    menue()
+    level = 1
+
+    while True:
+        try:
+            auswahl = input("Eingabe: ")
+            if auswahl == "N" or auswahl == "n":
+               neues_spiel(level)
+            elif auswahl == "L" or auswahl == "l":
+                level = levels()
+                menue()
+            elif auswahl == "B" or auswahl == "b":
+                beenden()
+                break
+            else:
+                print("Ungültige Eingabe")
+        except ValueError:
+            print("Falsche Eingabe")
+
+
+main()
